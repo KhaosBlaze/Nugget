@@ -10,7 +10,7 @@ const ytdl = require('ytdl-core');
 //Connecting to the Matrix
 const nugget = new Discord.Client();
 console.log(token);
-nugget.login(token).catch(err => console.log("Connection Abandoned"));
+nugget.login(token).catch(err => console.log(err));
 
 //Console logging
 nugget.once('ready', () => {
