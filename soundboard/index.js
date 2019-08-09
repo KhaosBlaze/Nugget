@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const {
 	prefix,
 	token,
+	channel
 } = require('./config.json');
 const ytdl = require('ytdl-core');
 
@@ -127,7 +128,7 @@ async function execute(message, serverQueue) {
  }
 
  function bar(message){
-  nugget.channels.get("609490021397037118").send("Holy shit Oink Oink")
+  nugget.channels.get(channel).send("Holy shit Oink Oink")
  }
 
 });
