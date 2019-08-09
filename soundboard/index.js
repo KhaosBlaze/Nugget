@@ -50,6 +50,7 @@ nugget.on('message', async message => {
 async function execute(message, serverQueue) {
  const args = message.content.split(' ');
  const voiceChannel = message.member.voiceChannel;
+ const permissions = voiceChannel.permissionsFor(message.client.user);
  if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
   return message.channel.send('Oink Oink Oink Oink Oink Oink');
  }
