@@ -25,6 +25,8 @@ nugget.once('disconnect', () => {
  console.log('Disconnect!');
 });
 
+
+
 nugget.on('message', async message => {
  //We don't care if the message is from Nugget or 
  if (message.author.bot) return;
@@ -50,15 +52,24 @@ nugget.on('message', async message => {
   message.channel.send('You need to enter a valid command!')
  }
 
+ var http = require('http');
+
+ http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.write('Fucking Hell');
+  res.end();
+ }).listen(8080);
+
+
 //Oh hello execution
-async function execute(message, serverQueue) {
- const args = message.content.split(' ');
- const voiceChannel = message.member.voiceChannel;
- console.log(message.channel);
- const permissions = voiceChannel.permissionsFor(message.client.user);
- if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
-  return message.channel.send('Oink Oink Oink Oink Oink Oink');
- }
+ async function execute(message, serverQueue) {
+  const args = message.content.split(' ');
+  const voiceChannel = message.member.voiceChannel;
+  console.log(message.channel);
+  const permissions = voiceChannel.permissionsFor(message.client.user);
+  if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
+   return message.channel.send('Oink Oink Oink Oink Oink Oink');
+  }
 
  const songInfo = await ytdl.getInfo(args[1]);
  const song = {
@@ -127,8 +138,18 @@ async function execute(message, serverQueue) {
   serverQueue.connection.dispatcher.end();
  }
 
+ function stop(message, serverQueue) {
+  if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
+  serverQueue.songs = [];
+  serverQueue.connection.dispatcher.end();
+ }
+
  function bar(message){
   nugget.channels.get(channel).send("Holy shit Oink Oink")
+ }
+
+ function yoink(){
+  nugget.member.get()
  }
 
 });
