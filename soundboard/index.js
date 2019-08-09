@@ -42,6 +42,9 @@ nugget.on('message', async message => {
  } else if (message.content.startsWith(`${prefix}stop`)) {
   stop(message, serverQueue);
   return;
+ } else if (message.content.startsWith(`${prefix}bark`)) {
+  bar();
+  return;
  } else {
   message.channel.send('You need to enter a valid command!')
  }
@@ -121,6 +124,10 @@ async function execute(message, serverQueue) {
   if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
   if (!serverQueue) return message.channel.send('There is no song that I could skip!');
   serverQueue.connection.dispatcher.end();
+ }
+
+ function bar(message){
+  nugget.channels.get("609490021397037118").send("Holy shit Oink Oink")
  }
 
 });
