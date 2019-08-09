@@ -9,6 +9,7 @@ const ytdl = require('ytdl-core');
 
 //Connecting to the Matrix
 const client = new Discord.Client();
+console.log(token);
 client.login(token);
 
 //Console logging
