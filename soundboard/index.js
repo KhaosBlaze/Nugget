@@ -44,7 +44,6 @@ nugget.on('message', async message => {
  } else {
   message.channel.send('You need to enter a valid command!')
  }
-});
 
 //Oh hello execution
 async function execute(message, serverQueue) {
@@ -103,3 +102,5 @@ function play(guild, song) {
   return;
  }
 }
+
+});
