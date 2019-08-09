@@ -25,4 +25,4 @@ nugget.once('disconnect', () => {
 
 nugget.on('message', async message => {
   
-}
+};
