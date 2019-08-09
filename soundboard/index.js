@@ -11,6 +11,7 @@ const ytdl = require('ytdl-core');
 const nugget = new Discord.Client();
 console.log(token);
 nugget.login(token).catch(err => console.log(err));
+const queue = new Map();
 
 //Console logging
 nugget.once('ready', () => {
@@ -28,7 +29,7 @@ nugget.on('message', async message => {
  if (message.author.bot) return;
  if (!message.content.startsWith(prefix)) return;
 
- const queue = new Map();
+
  //This is temporary. Nugget will be controlled by Buttons
  const serverQueue = queue.get(message.guild.id);
 
@@ -94,13 +95,26 @@ async function execute(message, serverQueue) {
  }
 }
 
-function play(guild, song) {
- const serverQueue = queue.get(guild.id);
- if (!song) {
-  serverQueue.voiceChannel.leave();
-  queue.delete(guild.id);
-  return;
+ function play(guild, song) {
+  const serverQueue = queue.get(guild.id);
+  if (!song) {
+   serverQueue.voiceChannel.leave();
+   queue.delete(guild.id);
+   return;
+  }
+  const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+  .on('end', () => {
+   console.log('Music ended!');
+   // Deletes the finished song from the queue
+   serverQueue.songs.shift();
+   // Calls the play function again with the next song
+   play(guild, serverQueue.songs[0]);
+  })
+  .on('error', error => {
+   console.error(error);
+  });
+  dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
  }
-}
 
 });
+
