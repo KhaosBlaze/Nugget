@@ -33,7 +33,7 @@ nugget.on('message', async message => {
  const serverQueue = queue.get(message.guild.id);
 
  if (message.content.startsWith(`${prefix}play`)) {
-  execute(message, serverQueue);
+  execute(message, serverQueue).catch(err => console.log(err));
   return;
  } else if (message.content.startsWith(`${prefix}skip`)) {
   skip(message, serverQueue);
