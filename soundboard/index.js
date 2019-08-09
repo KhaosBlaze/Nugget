@@ -28,6 +28,7 @@ nugget.on('message', async message => {
  if (message.author.bot) return;
  if (!message.content.startsWith(prefix)) return;
 
+ const queue = new Map();
  //This is temporary. Nugget will be controlled by Buttons
  const serverQueue = queue.get(message.guild.id);
 
@@ -70,6 +71,7 @@ async function execute(message, serverQueue) {
   };
   // Setting the queue using our contract
   queue.set(message.guild.id, queueContruct);
+
   // Pushing the song to our songs array
   queueContruct.songs.push(song);
 
