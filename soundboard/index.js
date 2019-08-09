@@ -25,6 +25,14 @@ nugget.once('disconnect', () => {
  console.log('Disconnect!');
 });
 
+var http = require('http');
+
+http.createServer(function (req, res) {
+ console.log("We made it boys")
+ res.writeHead(200, {'Content-Type': 'text/plain'});
+ res.write('Fucking Hell');
+ res.end();
+}).listen(8080);
 
 
 nugget.on('message', async message => {
@@ -52,21 +60,11 @@ nugget.on('message', async message => {
   message.channel.send('You need to enter a valid command!')
  }
 
- var http = require('http');
-
- http.createServer(function (req, res) {
-  console.log("We made it boys")
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.write('Fucking Hell');
-  res.end();
- }).listen(8080);
-
 
 //Oh hello execution
  async function execute(message, serverQueue) {
   const args = message.content.split(' ');
   const voiceChannel = message.member.voiceChannel;
-  console.log(message.channel);
   const permissions = voiceChannel.permissionsFor(message.client.user);
   if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
    return message.channel.send('Oink Oink Oink Oink Oink Oink');
