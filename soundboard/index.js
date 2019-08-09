@@ -50,7 +50,7 @@ nugget.on('message', async message => {
 async function execute(message, serverQueue) {
  const args = message.content.split(' ');
  const voiceChannel = message.member.voiceChannel;
- console.log(voiceChannel);
+ console.log(message.channel);
  const permissions = voiceChannel.permissionsFor(message.client.user);
  if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
   return message.channel.send('Oink Oink Oink Oink Oink Oink');
@@ -115,6 +115,12 @@ async function execute(message, serverQueue) {
    console.error(error);
   });
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+ }
+
+ function skip(message, serverQueue) {
+  if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
+  if (!serverQueue) return message.channel.send('There is no song that I could skip!');
+  serverQueue.connection.dispatcher.end();
  }
 
 });
