@@ -30,7 +30,7 @@ var http = require('http');
 http.createServer(function (req, res) {
  console.log("We made it boys")
  res.writeHead(200, {'Content-Type': 'text/plain'});
- res.write('Fucking Hell');
+ res.write(req.url);
  res.end();
 }).listen(8080);
 
